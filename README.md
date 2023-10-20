@@ -1,4 +1,4 @@
-### boston-hosue-pricing
+## Boston House Price Prediction
 
 ### Tools Requirements
 1. [GitHub Account](https://fithub.com)
@@ -34,19 +34,6 @@ Boston House Price data set consists of 506 entires and 14 features, this datase
 Features of this dataset is as follows crim, zn, indus, chas, nox, rm, age, dis, rad, tax, ptratio, black, lstat, medv.
 There is no null values present in this dataset. The five point summary of this data as follows
     <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -223,10 +210,68 @@ There is no null values present in this dataset. The five point summary of this 
 The independent variables are correlated with each other, that means this dataset has Multicolinearity inside the data. By droping some features that are highly correlated with each other features it can be reduced.
 
 ### Preprocessing
-For this dataset Standard Scaler is used for preprocessing process. Standardize features by removing the mean and scaling to unit variance. Standardization of a dataset is a common requirement for many machine learning estimators: they might behave badly if the individual features do not more or less look like standard normally distributed data. Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Mean and standard deviation are then stored to be used on later data using :meth:`transform`.
+Standard Scaler is used for preprocessing process for this model. Standardize features by removing the mean and scaling to unit variance. Standardization of a dataset is a common requirement for many machine learning estimators: they might behave badly if the individual features do not more or less look like standard normally distributed data. Centering and scaling happen independently on each feature by computing the relevant statistics on the samples in the training set. Mean and standard deviation are then stored to be used on later data using :meth:`transform`.
 
 The standard score of a sample `x` is calculated as:
 
     z = (x - u) / s
 
-### Model Bulding 
+### Model Selection
+Selecting the right machine learning algorithm for a regression problem depends on various factors such as data type, size, complexity, accuracy, interpretability, and regularization.
+1. Data type: Regression algorithms are designed to estimate the mapping function (f) from input variables (x) to numerical or continuous output variables (y) . Therefore, the output variable is usually a real value, which can be an integer or a floating-point value.
+2. Data size: The size of the dataset can affect the choice of algorithm.
+3. Data complexity: The complexity of the data can also influence the choice of algorithm.
+4. Accuracy: The accuracy of the model is another important factor to consider. Some algorithms like linear regression and KNN have low accuracy but are computationally efficient. Other algorithms like SVR and decision trees have higher accuracy but are computationally expensive.
+5. Interpretability: Algorithms must be easy to interpret and explain.
+6. Regularization: Regularization is a technique used to prevent overfitting in machine learning models.
+In this model 3 regression algorithms (Linera Regression, Random Forest Regressor, Ada Boost Regressor) are taken and experimiented seperately.
+
+### Metrics
+Based on the algorithms 3 models are created and tested. The Metrics are shown in th below table.
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Algorithm</th>
+      <th>MAE</th>
+      <th>MSE</th>
+      <th>RSME</th>
+      <th>R2</th>
+      <th>ADJ_R2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>LinearRegression</td>
+      <td>3.412665</td>
+      <td>19.786008</td>
+      <td>4.448147</td>
+      <td>0.765756</td>
+      <td>0.847751</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>RandomForestRegressor</td>
+      <td>2.434559</td>
+      <td>10.089477</td>
+      <td>3.176394</td>
+      <td>0.880552</td>
+      <td>0.870277</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AdaBoostRegressor</td>
+      <td>2.745365</td>
+      <td>12.271584</td>
+      <td>3.503082</td>
+      <td>0.854718</td>
+      <td>0.842221</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+### Conclusion
+Based on the above table Random Forest regressor has the less error and high accuracy compared to others. So the Random Forest model is dumped to pickle file and used in the app.py file. Using Flask the model is loaded in the web api which is created in home.html file. By the postman the POST is configured and run on the local host website https://127.0.0.0:5000/home/predict
