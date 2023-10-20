@@ -229,4 +229,4 @@ The standard score of a sample `x` is calculated as:
 
     z = (x - u) / s
 
-### Model Bulding
+### Model Bulding 
