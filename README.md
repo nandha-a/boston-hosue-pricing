@@ -14,7 +14,7 @@
 5. sklearn
 6. Pickle
 
-### Algoritms and preprocessor
+### Algorithms and preprocessor
 1. Linear Regression
 2. Random Forest Regressor
 3. Ada Boost Regressor
